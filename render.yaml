@@ -36,7 +36,8 @@
         value: placeholder
       - key: EMAILS_FROM_EMAIL
         value: noreply@alashop.mx
-  - type: pserv
-    name: alashop-db
-    runtime: pgsql
+databases:
+  - name: alashop-db
+    databaseName: alashop
+    user: alashop
     plan: free

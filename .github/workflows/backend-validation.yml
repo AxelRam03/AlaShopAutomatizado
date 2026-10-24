@@ -1,0 +1,47 @@
+name: Backend validation
+
+on:
+  pull_request:
+    paths:
+      - "alashop-backend/**"
+      - "render.yaml"
+      - ".github/workflows/backend-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "alashop-backend/**"
+      - "render.yaml"
+      - ".github/workflows/backend-validation.yml"
+
+jobs:
+  static-validation:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: alashop-backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: alashop-backend/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt PyYAML
+
+      - name: Compile Python modules
+        run: python -m compileall -q app
+
+      - name: Validate required settings
+        env:
+          SECRET_KEY: ci-only-test-key-not-for-production
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+        run: python -c "from app.core.config import settings; assert settings.SECRET_KEY == 'ci-only-test-key-not-for-production'; assert settings.DATABASE_URL.startswith('postgresql://')"
+
+      - name: Validate Render YAML
+        working-directory: .
+        run: python -c "import yaml; yaml.safe_load(open('render.yaml', encoding='utf-8'))"

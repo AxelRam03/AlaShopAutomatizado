@@ -1,10 +1,10 @@
 services:
   - type: web
     name: alashop-backend
-    runtime: python
+    runtime: docker
     rootDir: alashop-backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    dockerfilePath: ./Dockerfile
+    plan: free
     envVars:
       - key: SECRET_KEY
         generateValue: true
@@ -14,34 +14,10 @@ services:
           property: connectionString
       - key: FRONTEND_URL
         value: https://alashop-frontend-git-main-alashop.vercel.app
-      - key: CLOUDINARY_CLOUD_NAME
-        value: placeholder
-      - key: CLOUDINARY_API_KEY
-        value: placeholder
-      - key: CLOUDINARY_API_SECRET
-        value: placeholder
-      - key: MP_ACCESS_TOKEN
-        value: placeholder
-      - key: MP_PUBLIC_KEY
-        value: placeholder
-      - key: WEBHOOK_SECRET
-        value: placeholder
-      - key: STRIPE_SECRET_KEY
-        value: placeholder
-      - key: STRIPE_WEBHOOK_SECRET
-        value: placeholder
-      - key: SMTP_HOST
-        value: smtp.gmail.com
-      - key: SMTP_PORT
-        value: "587"
-      - key: SMTP_USER
-        value: placeholder@gmail.com
-      - key: SMTP_PASSWORD
-        value: placeholder
-      - key: EMAILS_FROM_EMAIL
-        value: noreply@alashop.mx
+
 databases:
   - name: alashop-db
-    databaseName: alashop
-    user: alashop
+    databaseName: alashop_db
+    user: alashop_db_user
     plan: free
+    region: oregon

@@ -27,3 +27,6 @@ Consulta los archivos de cada componente para verificar los comandos actuales y 
 
 ## Estado
 Este README describe el propósito y la arquitectura prevista; la disponibilidad de pagos, almacenamiento y funciones SaaS debe validarse mediante pruebas de integración.
+
+### Variables obligatorias
+El backend requiere `SECRET_KEY` y `DATABASE_URL`; la aplicación debe fallar al iniciar si no están configuradas. Genera la clave con `openssl rand -hex 32` y configura la conexión PostgreSQL desde el proveedor de base de datos. En Render, `render.yaml` declara la clave generada por la plataforma y enlaza la URL de conexión de la base de datos.

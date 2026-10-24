@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: alashop-backend
+    name: AlaShopAutomatizado
     runtime: docker
     rootDir: alashop-backend
     dockerfilePath: ./Dockerfile

@@ -5,12 +5,14 @@ from functools import lru_cache
 class Settings(BaseSettings):
     APP_NAME: str = "AlaShop"
     API_V1_STR: str = "/api/v1"
-    SECRET_KEY: str = "changeme"
+    # Required: provide a unique, strong value through the environment or .env.
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
-    DATABASE_URL: str = "postgresql://postgres:postgres@localhost:5432/alashop"
+    # Required: provide the connection string for the intended database.
+    DATABASE_URL: str
     REDIS_URL: str = "redis://localhost:6379"
 
     CLOUDINARY_CLOUD_NAME: str = ""

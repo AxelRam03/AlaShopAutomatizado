@@ -1,4 +1,4 @@
-﻿services:
+services:
   - type: web
     name: alashop-backend
     runtime: python
@@ -7,7 +7,11 @@
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: SECRET_KEY
-        value: AlaShop2024SecretKey123456789012
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: alashop-db
+          property: connectionString
       - key: FRONTEND_URL
         value: https://alashop-frontend-git-main-alashop.vercel.app
       - key: CLOUDINARY_CLOUD_NAME

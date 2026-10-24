@@ -148,14 +148,7 @@ FROM sales
 WHERE status = 'completed'
 GROUP BY store_id, DATE(created_at);
 
--- ── DATOS DE PRUEBA ──────────────────────────────────────────
--- Contraseña del admin demo: Admin1234!
-INSERT INTO stores (name, slug, email) VALUES ('Tienda Demo', 'tienda-demo', 'demo@alashop.mx');
-
-INSERT INTO users (store_id, email, full_name, hashed_password, role)
-SELECT id,
-       'admin@demo.mx',
-       'Admin Demo',
-       '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW',
-       'admin'
-FROM stores WHERE slug = 'tienda-demo';
+-- ── DATOS DE PRUEBA ─────────────────────────────────────────
+-- No se crea una cuenta admin con contraseña conocida por defecto.
+-- Para pruebas, crea un usuario mediante el flujo de registro de la aplicación
+-- o mediante un proceso administrativo seguro, usando una contraseña única.
